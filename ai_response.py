@@ -11,9 +11,10 @@ genai.configure(api_key=api_key)
 def generate_reply(user_query, sentiment):
     prompt = f""" A customer left a {sentiment} review: "{user_query}"
         Generate a professional and polite response. 
-        Do not mention the sentiment or unnecessary details in the response. 
+        Do not mention the sentiment which left by user any where in the response or unnecessary details in the response. 
         Ensure the response is clear, respectful, and within 50 words. 
-        Use varied wording each time for uniqueness.
+        Use varied wording each time for uniqueness.compulsory use emojis to replicate user sentiment.
+        your response should based on cab service.
         mention company name in the response by sincerely note,'Uber Inc' after a 
         line break. Don't mention the company name text in the output.
         """
