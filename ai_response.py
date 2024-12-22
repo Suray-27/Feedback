@@ -30,6 +30,3 @@ def generate_reply(user_query, sentiment):
                                   temperature=0.5))
     chat = model.generate_content(prompt)
     return chat.text
-
-if __name__ == "__main__":
-    print(generate_reply("Travel is not good","negative"))
