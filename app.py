@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from scipy.sparse import hstack
-import joblib
+from Mongo_DB import load_model_from_mongodb
 from pre_process import preprocess
 import streamlit as st
 from pymongo import MongoClient
@@ -13,10 +13,16 @@ client = MongoClient(os.getenv("MONGODB_PASSWORD"))
 db = client["feedback_db"]
 collection = db["reviews"]
 
-# Load pre-trained models and scalers
-model = joblib.load("Model/logistic_model.pkl")
-tfidf = joblib.load("Model/tfidf.pkl")
-scale = joblib.load("Model/scale.pkl")
+@st.cache_resource
+def get_models():
+    # Retrieve models from MongoDB
+    scaler = load_model_from_mongodb("standard_scaler")
+    tfidf = load_model_from_mongodb("tfidf_vectorizer")
+    logistic_model = load_model_from_mongodb("logistic_regression")
+    return scaler, tfidf, logistic_model
+
+# Load models once
+scaler, tfidf, logistic_model = get_models()
 
 # Set up the Streamlit app configuration
 st.set_page_config(page_title="Auto-Navigation App", layout="wide")
@@ -76,11 +82,11 @@ elif st.session_state.page == "User Reviews":
                 # Preprocess and vectorize the review
                 cleaned_review = preprocess(user_review)
                 vectorized_review = tfidf.transform([cleaned_review])
-                rating = scale.transform([[rat]])
+                rating = scaler.transform([[rat]])
                 combine = hstack([vectorized_review,rating])
 
                 # Predict sentiment using the trained model
-                sentiment = model.predict(combine)
+                sentiment = logistic_model.predict(combine)
                 sentiment = str(sentiment[0])
 
                 # Generate a response based on sentiment
