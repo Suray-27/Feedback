@@ -3,3 +3,5 @@
 .ai_response.cpython-312.pyc
 .email_utils.cpython-312.pyc
 .email.cpython-312.pyc
+.Mongo_DB.cpython-312.pyc
+.pre_process.cpython-312.pyc
