@@ -13,6 +13,9 @@ client = MongoClient(os.getenv("MONGODB_PASSWORD"))
 db = client["feedback_db"]
 collection = db["reviews"]
 
+# Set up the Streamlit app configuration
+st.set_page_config(page_title="Auto-Navigation App", layout="wide")
+
 @st.cache_resource
 def get_models():
     # Retrieve models from MongoDB
@@ -24,8 +27,6 @@ def get_models():
 # Load models once
 scaler, tfidf, logistic_model = get_models()
 
-# Set up the Streamlit app configuration
-st.set_page_config(page_title="Auto-Navigation App", layout="wide")
 
 # Initialize session state variables for navigation and user login
 if "page" not in st.session_state:
