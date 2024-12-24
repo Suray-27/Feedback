@@ -1,16 +1,27 @@
 import os
 from datetime import datetime
+from scipy.sparse import hstack
+import joblib
+from pre_process import preprocess
 import streamlit as st
 from pymongo import MongoClient
 from ai_response import generate_reply
-from email_utils import email_coupon 
+from email_utils import email_coupon
 
+# Initialize MongoDB client and database connection
 client = MongoClient(os.getenv("MONGODB_PASSWORD"))
 db = client["feedback_db"]
 collection = db["reviews"]
 
+# Load pre-trained models and scalers
+model = joblib.load("Model/logistic_model.pkl")
+tfidf = joblib.load("Model/tfidf.pkl")
+scale = joblib.load("Model/scale.pkl")
+
+# Set up the Streamlit app configuration
 st.set_page_config(page_title="Auto-Navigation App", layout="wide")
 
+# Initialize session state variables for navigation and user login
 if "page" not in st.session_state:
     st.session_state.page = "Home"
 if "logged_in" not in st.session_state:
@@ -19,6 +30,7 @@ if "user_email" not in st.session_state:
     st.session_state.user_email = None
 
 
+# Helper function to change pages
 def change_page(new_page):
     st.session_state.page = new_page
 
@@ -26,13 +38,12 @@ if st.session_state.page == "Home":
     st.title("Customer reply generator")
     st.header("User Login")
 
+    # Input field for user email
     user_email = st.text_input("Enter Your Email:", placeholder="eg., user@gmail.com")
 
+    # Login button
     if st.button("Login"):
         if user_email.endswith("@gmail.com") and user_email != "":
-            #user_data = collection.find_one({"email":user_email})
-            #if not user_data:
-                #collection.insert_one({"email":user_email})
             st.session_state.logged_in = True
             st.session_state.user_email = user_email
             st.success("User logged in successfully.")
@@ -40,27 +51,52 @@ if st.session_state.page == "Home":
         else:
             st.error("Please enter a valid email address.")
 
+
+# User Reviews Page: Review submission and sentiment analysis
 elif st.session_state.page == "User Reviews":
     st.title("Customer Reviews")
 
+    # Ensure the user is logged in before showing review options
     if st.session_state.logged_in:
-        user_review = st.text_area("Enter Your Review:",placeholder="Write your review here...")
-        sentiment = st.selectbox("Select Sentiment", ["positive", "negative","neutral"])
 
+        # Input field for user review
+        user_review = st.text_area("Enter Your Review:",placeholder="Write your review here...")
+
+        # Radio buttons for rating selection
+        rat = st.radio("Your Rating", [1, 2, 3, 4, 5])
+        
+
+        # Button to generate AI-based reply
         if st.button("Generate Reply"):
+            # Ensure the review is not empty
             if not user_review.strip():
                 st.error("Please enter a review.")
                 st.stop()
             else:
+                # Preprocess and vectorize the review
+                cleaned_review = preprocess(user_review)
+                vectorized_review = tfidf.transform([cleaned_review])
+                rating = scale.transform([[rat]])
+                combine = hstack([vectorized_review,rating])
+
+                # Predict sentiment using the trained model
+                sentiment = model.predict(combine)
+                sentiment = str(sentiment[0])
+
+                # Generate a response based on sentiment
                 reply = generate_reply(user_query=user_review, sentiment=sentiment)
 
+                # Insert review and response into MongoDB
                 collection.insert_one({"email":st.session_state.user_email, 
                                     "review": user_review, 
                                     "reply": reply,
                                     "sentiment": sentiment,
                                     "time": datetime.now()})
+                
+                # Display the generated reply
                 st.write(reply)
 
+                # Send a coupon email based on sentiment
                 if sentiment == "negative":
                     email_coupon(subject = "15% off on your next purchase",
                             body = "Dear Customer,you have been selected to receive a 15% discount on your next purchase. Use the code: SAVE50 at checkout.",
@@ -70,7 +106,8 @@ elif st.session_state.page == "User Reviews":
                     email_coupon(subject = "5% off on your next purchase",
                             body = "Dear Customer, you have been selected to receive a 5% discount on your next purchase. Use the code: SAVE25 at checkout.",
                             to = st.session_state.user_email)
-                    
+
+        # Logout button                    
         if st.button("Logout"):
             st.session_state.logged_in = False
             st.session_state.user_email = None
@@ -78,6 +115,7 @@ elif st.session_state.page == "User Reviews":
 
         
     else:
+        # Prompt to log in if the user is not authenticated
         st.write("Please log in to enter a review and generate a reply.")
 
 
