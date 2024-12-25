@@ -9,22 +9,22 @@ api_key = os.environ['GOOGLE_API_KEY']
 genai.configure(api_key=api_key)
 
 def generate_reply(user_query, sentiment):
-    prompt = f""" A customer left a {sentiment} review: "{user_query}"
-        strict rules : (Generate a professional and polite response. 
-        Do not mention the sentiment which left by user any where in the response or unnecessary details in the response.
+    prompt = f"""
+A customer left a {sentiment} review: 
+"{user_query}"
 
-        Ensure the response is clear, respectful, and within 50 words. 
+Strict Rules:
+1. Generate a professional and polite response tailored to the customer's input.  
+2. Do not mention the sentiment of the review anywhere in the response.  
+3. Keep the response concise, respectful, and clear, within 50 words.  
+4. Use emojis naturally to reflect the customer's sentiment or experience.  
+5. Avoid using the word "input" in the response.  
+6. End with a sincerely note mentioning the company name, 'Uber Inc', on a new line (do not explicitly include the words "Uber Inc" in the body of the response).  
 
-        Use varied wording each time for uniqueness.compulsory use emojis to replicate user sentiment.
-        your response should based on cab service.
-        
-        Don't mention 'input' word in the response.
-
-        mention company name in the response by sincerely note,'Uber Inc' after a 
-        line break. Don't mention the company name text in the output.)
-
-        week rules : (strict rules + creative response only for neutral sentiment.)
-        """
+Creative Guidelines for Neutral Feedback:
+1. Follow all strict rules.  
+2. Add a touch of creativity and warmth to the response for a more engaging tone.  
+"""
     model = genai.GenerativeModel("models/gemini-pro",
                                   generation_config=genai.GenerationConfig(max_output_tokens=50,
                                   temperature=0.5))
