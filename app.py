@@ -3,18 +3,33 @@ from datetime import datetime
 from scipy.sparse import hstack
 from Mongo_DB import load_model_from_mongodb
 from pre_process import preprocess
+import re
 import streamlit as st
 from pymongo import MongoClient
 from ai_response import generate_reply
 from email_utils import email_coupon
 
-# Initialize MongoDB client and database connection
-client = MongoClient(os.getenv("MONGODB_PASSWORD"))
-db = client["feedback_db"]
-collection = db["reviews"]
-
 # Set up the Streamlit app configuration
-st.set_page_config(page_title="Auto-Navigation App", layout="wide")
+st.set_page_config(page_title="Auto-Navigation App")
+
+# Initialize session state variables for navigation and user login
+if "page" not in st.session_state:
+    st.session_state.page = "Home"
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+if "user_email" not in st.session_state:
+    st.session_state.user_email = None
+
+# Initialize MongoDB client and database connection
+@st.cache_resource
+def get_mongo_client():
+    return MongoClient(os.getenv("MONGODB_PASSWORD"))
+
+def get_mongo_collection():
+    client = get_mongo_client()
+    db = client["feedback_db"]
+    return db["reviews"]
+
 
 @st.cache_resource
 def get_models():
@@ -24,17 +39,10 @@ def get_models():
     logistic_model = load_model_from_mongodb("logistic_regression")
     return scaler, tfidf, logistic_model
 
-# Load models once
+# Load models and MongoDB collection
+collection = get_mongo_collection()
 scaler, tfidf, logistic_model = get_models()
 
-
-# Initialize session state variables for navigation and user login
-if "page" not in st.session_state:
-    st.session_state.page = "Home"
-if "logged_in" not in st.session_state:
-    st.session_state.logged_in = False
-if "user_email" not in st.session_state:
-    st.session_state.user_email = None
 
 
 # Helper function to change pages
@@ -45,18 +53,19 @@ if st.session_state.page == "Home":
     st.title("Customer reply generator")
     st.header("User Login")
 
-    # Input field for user email
-    user_email = st.text_input("Enter Your Email:", placeholder="eg., user@gmail.com")
+    with st.form("login_form"):
+        user_email = st.text_input("Enter Your Email:", placeholder="e.g., user@gmail.com")
+        login_button = st.form_submit_button("Login")
 
-    # Login button
-    if st.button("Login"):
-        if user_email.endswith("@gmail.com") and user_email != "":
-            st.session_state.logged_in = True
-            st.session_state.user_email = user_email
-            st.success("User logged in successfully.")
-            change_page("User Reviews")
-        else:
-            st.error("Please enter a valid email address.")
+        #Login button
+        if login_button:
+            if re.match(r"^[\w\.-]+@gmail\.com$", user_email):
+                st.session_state.logged_in = True
+                st.session_state.user_email = user_email
+                st.success("User logged in successfully.")
+                change_page("User Reviews")
+            else:
+                st.error("Please enter a valid email address.")
 
 
 # User Reviews Page: Review submission and sentiment analysis
@@ -74,7 +83,7 @@ elif st.session_state.page == "User Reviews":
         
 
         # Button to generate AI-based reply
-        if st.button("Generate Reply"):
+        if st.button("Submitt Response"):
             # Ensure the review is not empty
             if not user_review.strip():
                 st.error("Please enter a review.")
@@ -91,6 +100,7 @@ elif st.session_state.page == "User Reviews":
                 sentiment = str(sentiment[0])
 
                 # Generate a response based on sentiment
+
                 reply = generate_reply(user_query=user_review, sentiment=sentiment)
 
                 # Insert review and response into MongoDB
