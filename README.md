@@ -40,11 +40,11 @@ This project revolutionizes customer feedback management by integrating AI, mach
 ## 📊 Exploratory Data Analysis (EDA)
 **File:** `EDA.py`
 ### 🔍 Insights
-- **Trend Analysis by Year:** Significant increase in reviews starting from 2017, peaking in 2019.
+- **Trend Analysis by Year:** Significant increase in reviews starting from 2017 (smart phone penetration and launch of jio in september 2016), peaking in 2019 (new governement regulation - Amendment to the Motor Vechicles act).
 - **Monthly Trends:** Gradual rise from January to March, with peaks in August.
-- **Hourly Trends:** High activity during 4–6 AM and 12–2 PM.
-- **App Version Analysis:** Weak negative correlation between `appVersion` and `rating`. Older versions received higher ratings.
-- **Developer Responses:** Ratings with developer responses were statistically different.
+- **Hourly Trends:** High activity during 4–6 AM (Early travelers heading to airport or railway station or people returning from late-night shifts) and 12–2 PM (Lunch break or people reviewing rides taken early in the day).
+- **App Version Analysis:** Weak negative correlation between `appVersion` and `rating`. Older versions received higher ratings (The app Version after `5.1`, number of High ratings start to decrease). There must be some other factors like app version influcence the customers rating.
+- **Developer Responses:** Ratings with developer responses were statistically different. Developer tend to respond more on customer's rating the service as `1`
 
 ---
 
@@ -69,7 +69,7 @@ This project revolutionizes customer feedback management by integrating AI, mach
 - **Model:** Logistic Regression
 - **Outputs:** Sentiments - Positive, Neutral, Negative
 - **Saved Models:**
-  - Logistic Regression Model
+  - `Logistic Regression Model`
   - `TfidfVectorizer`
   - `StandardScaler`
 
