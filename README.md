@@ -1,6 +1,6 @@
 # **🤖 Comprehensive Sentiment Analysis and AI-Powered Response System**
 
-![AI-Driven Feedback System](https://www.shutterstock.com/image-vector/ai-content-creation-aipowered-writing-260nw-2425595939.jpg)
+![AI-Driven Feedback System](https://img.freepik.com/premium-vector/customer-support-service-call-center-worker-hotline-operator-with-robot-chatbot-man-asks-questions-digital-assistant-aid-web-help-vector-artificial-intelligence-assistance_533410-120.jpg)
 
 ## **🔬 Project Overview**
 This project revolutionizes customer feedback management by integrating AI, machine learning, and cloud-based solutions. Built on the "Ola Sentiment Reviews" dataset (357,697 rows and 13 columns), the system predicts customer sentiments (Positive, Neutral, Negative), generates polite AI-driven responses, and automates personalized email follow-ups for neutral and negative feedback. It provides seamless real-time interaction via a Streamlit web interface and stores feedback and model artifacts in MongoDB for efficient data management.
@@ -56,8 +56,7 @@ This project revolutionizes customer feedback management by integrating AI, mach
   - Removed stopwords using `nltk`.
   - Included emoji analysis for modern conversational relevance.
   - Addressed classification biases, e.g., competitor appraisals marked as negative.
-  - Tokenization, lemmatization, and cleaning of text data.
-
+  
 ---
 
 ### **🌐 Sentiment Analysis and Model Building**
@@ -67,6 +66,7 @@ This project revolutionizes customer feedback management by integrating AI, mach
 - **Data:** Processed from `review_description` and `rating` columns.
 - **Tools:** `TfidfVectorizer`, `StandardScaler`, `hstack`
 - **Model:** Logistic Regression
+- **Accuracy:**  `96%`.
 - **Outputs:** Sentiments - Positive, Neutral, Negative
 - **Saved Models:**
   - `Logistic Regression Model`
@@ -116,12 +116,6 @@ This project revolutionizes customer feedback management by integrating AI, mach
   - Stores user feedback and system responses in MongoDB.
   - Facilitates interaction between the user and the logistic model.
 
----
-
-## 📈 Visual Summary
-- **Yearly Review Trends:** 📅 📊
-- **Rating Distribution:** ⭐📊
-- **App Version Analysis:** 📲 📊
 
 ---
 
