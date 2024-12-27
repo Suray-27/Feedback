@@ -1,10 +1,13 @@
-import google.generativeai as genai   # Required library
+import google.generativeai as genai
+import streamlit as st   # Required library
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
 api_key = os.environ['GOOGLE_API_KEY']   # Gemini API
+api_key = st.secrets["general"]["GOOGLE_API_KEY"]
+genai.init(api_key = api_key)
 
 genai.configure(api_key=api_key)
 

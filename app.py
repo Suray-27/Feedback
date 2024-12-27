@@ -14,6 +14,7 @@ from pymongo import MongoClient
 from ai_response import generate_reply
 from email_utils import email_coupon
 
+
 nltk.data.path.append('./home/appuser/nltk_data')
 stop_words = stopwords.words('english')
 
