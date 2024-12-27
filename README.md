@@ -1,6 +1,6 @@
 # **🤖 Comprehensive Sentiment Analysis and AI-Powered Response System**
 
-<div align = "center">
+<div align = "left">
   <img src="https://img.freepik.com/free-vector/hand-drawn-flat-design-npl-illustration_23-2149262969.jpg" alt="AI-Driven Feedback System" width="400" height="250">
 </div>
 
