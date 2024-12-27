@@ -1,4 +1,5 @@
 streamlit
+google-generativeai
 pymongo
 scikit-learn
 joblib
