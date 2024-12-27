@@ -8,6 +8,7 @@ import setup
 import nltk
 from nltk.corpus import stopwords
 nltk.data.path.append('./nltk_data')
+nltk.download('stopwords')
 stop_words = stopwords.words('english')
 import streamlit as st
 from pymongo import MongoClient
