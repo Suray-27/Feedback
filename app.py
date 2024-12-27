@@ -4,7 +4,6 @@ from scipy.sparse import hstack
 from mongo_db import load_model_from_mongodb
 from pre_process import preprocess
 import re
-import setup
 import nltk
 from nltk.corpus import stopwords
 nltk.download('stopwords')
