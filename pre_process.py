@@ -1,4 +1,4 @@
-from nltk.corpus import stopwords
+from nltk.corpus import stopwords # Required Libraries
 from textblob import TextBlob
 import emoji
 import re
@@ -6,6 +6,7 @@ import re
 
 stop_words = set(stopwords.words('english'))
 
+# To clean text
 def preprocess(text):
     sub_text = text.lower().strip()
     extracted_emojis = ''.join(char for char in text if char in emoji.EMOJI_DATA)
@@ -15,6 +16,7 @@ def preprocess(text):
     return sub_text+''+extracted_emojis
 
 
+# Classify sentiments
 def analyze_sentiment(text,competitors):
 
     
