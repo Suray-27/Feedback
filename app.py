@@ -4,6 +4,7 @@ from scipy.sparse import hstack
 from mongo_db import load_model_from_mongodb
 from pre_process import preprocess
 import re
+import setup
 import streamlit as st
 from pymongo import MongoClient
 from ai_response import generate_reply
