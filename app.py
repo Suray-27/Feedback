@@ -10,7 +10,7 @@ from ai_response import generate_reply
 from email_utils import email_coupon
 
 # Set up the Streamlit app configuration
-st.set_page_config(page_title="Auto-Navigation App")
+st.set_page_config(page_title="Customer Response Generator")
 
 # Initialize session state variables for navigation and user login
 if "page" not in st.session_state:
