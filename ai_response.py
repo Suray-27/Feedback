@@ -1,10 +1,10 @@
-import google.generativeai as genai
+import google.generativeai as genai   # Required library
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
-api_key = os.environ['GOOGLE_API_KEY']
+api_key = os.environ['GOOGLE_API_KEY']   # Gemini API
 
 genai.configure(api_key=api_key)
 
@@ -28,5 +28,5 @@ Creative Guidelines for Neutral Feedback:
     model = genai.GenerativeModel("models/gemini-pro",
                                   generation_config=genai.GenerationConfig(max_output_tokens=50,
                                   temperature=0.5))
-    chat = model.generate_content(prompt)
+    chat = model.generate_content(prompt)   # Generate response with pre set rules (prompt)
     return chat.text
