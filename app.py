@@ -7,6 +7,8 @@ import re
 import setup
 import nltk
 from nltk.corpus import stopwords
+nltk.data.path.append('./nltk_data')
+stop_words = stopwords.words('english')
 import streamlit as st
 from pymongo import MongoClient
 from ai_response import generate_reply
