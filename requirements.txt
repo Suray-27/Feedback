@@ -3,7 +3,6 @@ pymongo
 scikit-learn
 joblib
 nltk
-nltk.download('stopwords')
 textblob
 emoji
 pandas
