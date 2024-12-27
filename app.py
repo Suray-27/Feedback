@@ -117,12 +117,12 @@ elif st.session_state.page == "User Reviews":
                 # Send a coupon email based on sentiment
                 if sentiment == "negative":
                     email_coupon(subject = "15% off on your next purchase",
-                            body = "Dear Customer,you have been selected to receive a 15% discount on your next purchase. Use the code: SAVE50 at checkout.",
+                            body = "Dear Customer,you have been selected to receive a 15% discount on your next booking. Use the code: SAVE15 at checkout.",
                             to = st.session_state.user_email)
                     
                 elif sentiment == "neutral":
                     email_coupon(subject = "5% off on your next purchase",
-                            body = "Dear Customer, you have been selected to receive a 5% discount on your next purchase. Use the code: SAVE25 at checkout.",
+                            body = "Dear Customer, you have been selected to receive a 5% discount on your next booking. Use the code: SAVE5 at checkout.",
                             to = st.session_state.user_email)
 
         # Logout button                    
