@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from scipy.sparse import hstack
-from Mongo_DB import load_model_from_mongodb
+from Database import load_model_from_mongodb
 from pre_process import preprocess
 import re
 import streamlit as st
