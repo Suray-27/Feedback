@@ -5,10 +5,14 @@ from mongo_db import load_model_from_mongodb
 from pre_process import preprocess
 import re
 import setup
+import nltk
+from nltk.corpus import stopwords
 import streamlit as st
 from pymongo import MongoClient
 from ai_response import generate_reply
 from email_utils import email_coupon
+
+stop_words = stopwords.words('english')
 
 # Set up the Streamlit app configuration
 st.set_page_config(page_title="Customer Response Generator")
