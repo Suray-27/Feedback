@@ -1,6 +1,6 @@
 # **🤖 Comprehensive Sentiment Analysis and AI-Powered Response System**
 
-![AI-Driven Feedback System](https://via.placeholder.com/800x300?text=AI+Feedback+System)
+![AI-Driven Feedback System](https://www.shutterstock.com/image-vector/ai-content-creation-aipowered-writing-260nw-2425595939.jpg)
 
 ## **🔬 Project Overview**
 This project revolutionizes customer feedback management by integrating AI, machine learning, and cloud-based solutions. Built on the "Ola Sentiment Reviews" dataset, the system predicts customer sentiments (Positive, Neutral, Negative), generates polite AI-driven responses, and automates personalized email follow-ups for neutral and negative feedback. It provides seamless real-time interaction via a Streamlit web interface and stores feedback and model artifacts in MongoDB for efficient data management.
