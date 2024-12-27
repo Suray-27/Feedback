@@ -12,6 +12,7 @@ from pymongo import MongoClient
 from ai_response import generate_reply
 from email_utils import email_coupon
 
+nltk.data.path.append('./nltk_data')
 stop_words = stopwords.words('english')
 
 # Set up the Streamlit app configuration
