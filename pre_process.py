@@ -1,9 +1,10 @@
+import nltk
 from nltk.corpus import stopwords # Required Libraries
 from textblob import TextBlob
 import emoji
 import re
 
-
+nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
 
 # To clean text
