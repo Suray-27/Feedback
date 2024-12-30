@@ -88,7 +88,7 @@ This project revolutionizes customer feedback management by integrating AI, mach
 ---
 
 ## 🗄️ Database Management
-**File:** `Mongo_DB.py`
+**File:** `mongo_db.py`
 ### 🛢️ Implementation
 - **Database:** MongoDB (cloud-based)
 - **Libraries:** `pymongo`, `joblib`, `io`
