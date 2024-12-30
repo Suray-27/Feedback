@@ -9,7 +9,7 @@ from pymongo import MongoClient
 from ai_response import generate_reply
 from email_utils import email_coupon
 import nltk
-nltk.download("stopwords")
+nltk.download('stopwords')
 
 # Set up the Streamlit app configuration
 st.set_page_config(page_title="Customer Response Generator")
