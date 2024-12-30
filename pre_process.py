@@ -3,7 +3,7 @@ from textblob import TextBlob
 import emoji
 import re
 import nltk
-
+nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
 
 # To clean text
