@@ -2,6 +2,7 @@ from nltk.corpus import stopwords # Required Libraries
 from textblob import TextBlob
 import emoji
 import re
+import nltk
 
 stop_words = set(stopwords.words('english'))
 
