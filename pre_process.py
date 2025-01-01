@@ -24,11 +24,12 @@ def analyze_sentiment(text,competitors):
     polarity = blob.sentiment.polarity
     competitor_mentioned = any(comp in text.lower() for comp in competitors)
 
-    if competitor_mentioned and ("expensive" in text.lower() or "better" in text.lower()
+    if competitor_mentioned and ("expensive" in text.lower()
                                  or "extra charge" in text.lower()
                                  or 'hangs' in text.lower()):
         
         return "negative"
+    
 
     if polarity > 0:
         return 'positive'
