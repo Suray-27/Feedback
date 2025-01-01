@@ -44,14 +44,14 @@ def get_models():
 collection = get_mongo_collection()
 scaler, tfidf, logistic_model = get_models()
 
-
-
+st.text("It is a Response Generator Project for Customer reviews Powered by AI. This Response Generator sends mail to 'negative' and 'neutral reviews'.")
+st.caption("It may shows false results sometimes, so please don't take it seriously. I assured that your data is safe with me.")
 # Helper function to change pages
 def change_page(new_page):
     st.session_state.page = new_page
 
 if st.session_state.page == "Home":
-    st.title("Customer reply generator")
+    st.title("Customer Reply Generator")
     st.header("User Login")
 
     with st.form("login_form"):
@@ -63,8 +63,8 @@ if st.session_state.page == "Home":
             if re.match(r"^[\w\.-]+@gmail\.com$", user_email):
                 st.session_state.logged_in = True
                 st.session_state.user_email = user_email
-                st.success("User logged in successfully.")
                 change_page("User Reviews")
+                
             else:
                 st.error("Please enter a valid email address.")
 
