@@ -1,9 +1,7 @@
 from nltk.corpus import stopwords # Required Libraries
 from textblob import TextBlob
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-import emoji
 import re
-from joblib import Parallel, delayed
+import emoji
 import nltk
 nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
