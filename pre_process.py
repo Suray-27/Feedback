@@ -5,7 +5,7 @@ import emoji
 import re
 from joblib import Parallel, delayed
 import nltk
-#nltk.download('stopwords')
+nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
 
 # To clean text
