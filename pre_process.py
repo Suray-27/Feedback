@@ -1,9 +1,11 @@
 from nltk.corpus import stopwords # Required Libraries
 from textblob import TextBlob
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import emoji
 import re
+from joblib import Parallel, delayed
 import nltk
-nltk.download('stopwords')
+#nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
 
 # To clean text
@@ -22,12 +24,18 @@ def analyze_sentiment(text,competitors):
     
     blob = TextBlob(text)
     polarity = blob.sentiment.polarity
+    negative_keywords = ['bad', 'terrible', 'poor', 'disappointing', 'hate', 'worst']
+    company_keywords = ['Ola', 'driver', 'ride', 'app', 'cab', 'service']
     competitor_mentioned = any(comp in text.lower() for comp in competitors)
 
     if competitor_mentioned and ("expensive" in text.lower()
                                  or "extra charge" in text.lower()
-                                 or 'hangs' in text.lower()):
+                                 or 'hangs' in text.lower()
+                                 or "cutomer support" in text.lower()):
         
+        return "negative"
+    
+    if any(keyword in text.lower() for keyword in negative_keywords) or any(keyword in text.lower() for keyword in company_keywords):
         return "negative"
     
 
@@ -37,4 +45,5 @@ def analyze_sentiment(text,competitors):
         return 'negative'
     else:
         return 'neutral'
+    
     
