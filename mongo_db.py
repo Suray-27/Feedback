@@ -1,7 +1,7 @@
 from pymongo import MongoClient # Required Library
 import os
 from io import BytesIO
-from bson.binary import Binary
+#from bson.binary import Binary
 import joblib
 from dotenv import load_dotenv
 
@@ -12,7 +12,7 @@ client = MongoClient(os.getenv("MONGODB_PASSWORD")) # Credentials
 db = client["Model_db"]
 collection = db["models"]
 
-def save_model_to_mongodb(model, model_name):
+"""def save_model_to_mongodb(model, model_name):
     # Serialize the model into memory
     buffer = BytesIO()
     joblib.dump(model, buffer)
@@ -35,7 +35,7 @@ tfidf_vectorizer = joblib.load("Model/tfidf.pkl")
 
 save_model_to_mongodb(scaler, "standard_scaler")
 save_model_to_mongodb(logistic_model, "logistic_regression")
-save_model_to_mongodb(tfidf_vectorizer, "tfidf_vectorizer")
+save_model_to_mongodb(tfidf_vectorizer, "tfidf_vectorizer")"""
 
 def load_model_from_mongodb(model_name):
     # fetch the model from mongodb
