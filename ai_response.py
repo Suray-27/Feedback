@@ -20,7 +20,7 @@ Strict Rules:
 3. Keep the response concise, respectful, and clear, within 50 words.  
 4. Use emojis naturally to reflect the customer's sentiment or experience.  
 5. Avoid using the word "input" in the response.  
-6. End with a sincerely note mentioning the company name, 'Uber Inc', on a new line (do not explicitly include the words "Uber Inc" in the body of the response).  
+6. End with a sincerely note mentioning the company name, 'Ola Inc', on a new line (do not explicitly include the words "Uber Inc" in the body of the response).  
 
 Creative Guidelines for Neutral Feedback:
 1. Follow all strict rules.  
