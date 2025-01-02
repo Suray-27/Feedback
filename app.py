@@ -44,8 +44,9 @@ def get_models():
 collection = get_mongo_collection()
 scaler, tfidf, logistic_model = get_models()
 
-st.text("It is a Response Generator Project for Customer reviews Powered by AI. This Response Generator sends mail to 'negative' and 'neutral reviews'.")
+#st.text("It is a Response Generator Project for Customer reviews Powered by AI. This Response Generator sends mail to 'negative' and 'neutral reviews'.")
 st.caption("It may shows false results sometimes, so please don't take it seriously. I assured that your data is safe with me.")
+
 # Helper function to change pages
 def change_page(new_page):
     st.session_state.page = new_page
