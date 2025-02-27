@@ -7,7 +7,6 @@ load_dotenv()
 api_key = os.environ['GOOGLE_API_KEY']   # Gemini API
 
 
-genai.configure(api_key=api_key)
 
 def generate_reply(user_query, sentiment):
     prompt = f"""
@@ -26,7 +25,7 @@ Creative Guidelines for Neutral Feedback:
 1. Follow all strict rules.  
 2. Add a touch of creativity and warmth to the response for a more engaging tone.  
 """
-    model = genai.GenerativeModel("models/gemini-pro",
+    model = genai.GenerativeModel("models/gemini-1.5-flash-latest",
                                   generation_config=genai.GenerationConfig(max_output_tokens=50,
                                   temperature=0.5))
     chat = model.generate_content(prompt)   # Generate response with pre set rules (prompt)
